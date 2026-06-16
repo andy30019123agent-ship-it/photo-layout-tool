@@ -181,6 +181,57 @@ body {
   line-height: 1.4;
 }
 
+.thumbnail-item.dragging { opacity: 0.4; }
+
+.thumbnail-drag-handle {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s;
+  touch-action: none;
+}
+
+.thumbnail-item:hover .thumbnail-drag-handle { opacity: 1; }
+.thumbnail-drag-handle:active { cursor: grabbing; }
+
+.thumbnail-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* On touch devices there is no hover — keep controls always reachable */
+@media (hover: none) {
+  .thumbnail-actions,
+  .thumbnail-drag-handle { opacity: 1; }
+
+  .btn-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .thumbnail-drag-handle {
+    width: 28px;
+    height: 28px;
+    font-size: 15px;
+  }
+}
+
 /* ── Settings Panel ──────────────────────────── */
 .settings-panel h3 {
   font-size: 13px;
@@ -370,7 +421,71 @@ body {
 
 /* ── RWD ─────────────────────────────────────── */
 @media (max-width: 700px) {
-  .app-body { flex-direction: column; }
-  .sidebar { width: 100%; max-width: none; border-right: none; border-bottom: 1px solid var(--border); }
-  .preview-area { padding: 16px; }
+  /* Let the whole page scroll naturally instead of trapping content
+     inside an overflow:hidden flex row */
+  .app-body {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    overflow: visible;
+    padding: 14px;
+    padding-bottom: 88px; /* room for the sticky download bar */
+  }
+
+  .app-header { padding: 12px 16px; }
+  .app-header h1 { font-size: 16px; }
+
+  /* Show preview right after the upload/thumbnail area */
+  .preview-area {
+    padding: 16px 12px 24px;
+    /* a comfortable canvas without a giant empty box on small screens */
+    min-height: 40vh;
+  }
+
+  /* Bigger tap targets so settings are easy to use one-handed */
+  .setting-row { padding: 10px 0; font-size: 15px; }
+  .setting-row > span { min-width: 84px; }
+
+  /* 16px on form controls stops iOS Safari from auto-zooming on focus */
+  .setting-row select,
+  .setting-row input[type="number"],
+  .custom-size input,
+  .number-input input { font-size: 16px; padding: 8px; }
+
+  .custom-size input,
+  .number-input input { width: 72px; }
+
+  .radio-group { gap: 14px; }
+  .radio-group label { padding: 4px 0; }
+
+  /* Keep the download button within thumb reach at all times */
+  .download-section {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    background: var(--surface);
+    margin: 0 -14px;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+  }
+
+  .btn-download { padding: 14px; font-size: 16px; }
+
+  /* Larger page navigation controls */
+  .btn-nav { padding: 10px 18px; font-size: 18px; }
+  .page-indicator { font-size: 15px; }
+
+  .thumbnail-grid { gap: 8px; }
+}
+
+@media (max-width: 400px) {
+  .app-badge { display: none; }
 }
