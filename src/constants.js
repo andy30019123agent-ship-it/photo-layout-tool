@@ -14,11 +14,6 @@ export const LAYOUT_OPTIONS = [
   { value: 6, label: '6 張/頁' },
 ]
 
-export const DPI_OPTIONS = [
-  { value: 300, label: '300 DPI（列印品質）' },
-  { value: 150, label: '150 DPI（較小檔案）' },
-]
-
 export const OUTPUT_FORMATS = [
   { value: 'pdf', label: 'PDF（多頁合一）' },
   { value: 'jpg', label: 'JPG' },

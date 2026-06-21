@@ -17,8 +17,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: var(--bg);
   color: var(--text);
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 18px;
+  line-height: 1.6;
 }
 
 /* ── Layout ─────────────────────────────────── */
@@ -27,62 +27,64 @@ body {
 .app-header {
   background: var(--accent);
   color: #fff;
-  padding: 12px 20px;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-.app-header h1 { font-size: 18px; font-weight: 600; }
+.app-header h1 { font-size: 26px; font-weight: 700; }
 
-.app-badge {
-  font-size: 11px;
-  background: rgba(255,255,255,0.2);
-  padding: 2px 8px;
-  border-radius: 12px;
-}
-
+/* Preview always sits at the top, controls stack underneath */
 .app-body {
   flex: 1;
   display: flex;
-  gap: 0;
-  overflow: hidden;
+  flex-direction: column;
 }
 
-/* ── Sidebar ─────────────────────────────────── */
-.sidebar {
-  width: 300px;
-  min-width: 280px;
-  max-width: 320px;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  overflow-y: auto;
-  padding: 16px;
+/* ── Upload bar (sits above the preview) ─────── */
+.upload-bar {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 20px 20px 0;
+}
+
+/* ── Controls ────────────────────────────────── */
+.controls {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 22px;
 }
 
 /* ── Upload Zone ─────────────────────────────── */
 .upload-zone {
-  border: 2px dashed var(--border);
+  border: 2px dashed var(--accent);
   border-radius: var(--radius);
-  padding: 20px 12px;
+  padding: 16px 12px;
   text-align: center;
   cursor: pointer;
   transition: all 0.2s;
-  background: #fafafa;
+  background: #e3f2fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .upload-zone:hover, .upload-zone.dragging {
-  border-color: var(--accent);
-  background: #e3f2fd;
+  border-color: var(--accent-hover);
+  background: #bbdefb;
 }
 
-.upload-icon { font-size: 28px; margin-bottom: 6px; }
-.upload-text { font-weight: 500; margin-bottom: 4px; }
-.upload-hint { font-size: 12px; color: var(--text-muted); }
+.upload-icon { font-size: 28px; }
+.upload-text { font-weight: 700; font-size: 22px; color: var(--accent); }
 
 /* ── Misc states ─────────────────────────────── */
 .loading-bar {
@@ -95,9 +97,11 @@ body {
 }
 
 .photo-stats {
-  font-size: 13px;
-  color: var(--text-muted);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
   padding: 2px 0;
+  text-align: center;
 }
 
 /* ── Thumbnail List ──────────────────────────── */
@@ -234,39 +238,38 @@ body {
 
 /* ── Settings Panel ──────────────────────────── */
 .settings-panel h3 {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
 }
 
 .setting-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 6px 0;
+  gap: 12px;
+  padding: 14px 0;
   border-bottom: 1px solid var(--border);
-  font-size: 13px;
+  font-size: 20px;
 }
 
-.setting-row > span { flex: 0 0 auto; min-width: 70px; }
+.setting-row > span { flex: 0 0 auto; min-width: 96px; font-weight: 600; }
 
 .setting-row select,
 .setting-row input[type="number"] {
   flex: 1;
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 4px 6px;
-  font-size: 13px;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 20px;
   background: var(--surface);
   color: var(--text);
 }
 
-.radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
-.radio-group label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.radio-group { display: flex; gap: 18px; flex-wrap: wrap; }
+.radio-group label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.radio-group input[type="radio"] { width: 22px; height: 22px; }
 
 .custom-size .custom-inputs {
   display: flex;
@@ -276,59 +279,24 @@ body {
 
 .custom-size input { width: 60px; text-align: center; }
 
-.number-input { display: flex; align-items: center; gap: 4px; }
-.number-input input { width: 60px; text-align: center; }
-
 /* ── Download ────────────────────────────────── */
 .download-section { display: flex; flex-direction: column; gap: 8px; }
 
-.quality-row label {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
-}
-
-.quality-row input[type="range"] { width: 100%; }
-
 .btn-download {
   width: 100%;
-  padding: 10px;
+  padding: 18px;
   background: var(--accent);
   color: #fff;
   border: none;
   border-radius: var(--radius);
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
   cursor: pointer;
   transition: background 0.2s;
 }
 
 .btn-download:hover:not(:disabled) { background: var(--accent-hover); }
 .btn-download:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* ── Print Links ─────────────────────────────── */
-.print-links {
-  background: #f3f8ff;
-  border: 1px solid #bbdefb;
-  border-radius: var(--radius);
-  padding: 10px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 12px;
-}
-
-.print-links-title { font-weight: 600; color: var(--accent); }
-
-.print-links a {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.print-links a:hover { text-decoration: underline; }
-.print-links-note { color: var(--text-muted); line-height: 1.6; }
 
 /* ── Error Bar ───────────────────────────────── */
 .error-bar {
@@ -359,12 +327,12 @@ body {
 
 /* ── Preview Area ────────────────────────────── */
 .preview-area {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #e8e8e8;
   padding: 24px;
+  min-height: 52vh;
   overflow: auto;
 }
 
@@ -408,8 +376,8 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 6px 14px;
-  font-size: 16px;
+  padding: 12px 22px;
+  font-size: 22px;
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -417,53 +385,28 @@ body {
 .btn-nav:hover:not(:disabled) { background: var(--accent); color: #fff; border-color: var(--accent); }
 .btn-nav:disabled { opacity: 0.35; cursor: not-allowed; }
 
-.page-indicator { font-size: 14px; color: var(--text-muted); min-width: 80px; text-align: center; }
+.page-indicator { font-size: 20px; font-weight: 600; color: var(--text); min-width: 96px; text-align: center; }
 
 /* ── RWD ─────────────────────────────────────── */
 @media (max-width: 700px) {
   /* Let the whole page scroll naturally instead of trapping content
      inside an overflow:hidden flex row */
   .app-body {
-    flex-direction: column;
     overflow: visible;
   }
 
-  .sidebar {
-    width: 100%;
-    min-width: 0;
-    max-width: none;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
+  .controls {
     overflow: visible;
-    padding: 14px;
-    padding-bottom: 88px; /* room for the sticky download bar */
+    padding: 18px 16px 96px; /* room for the sticky download bar */
   }
 
-  .app-header { padding: 12px 16px; }
-  .app-header h1 { font-size: 16px; }
+  .app-header { padding: 14px 16px; }
 
-  /* Show preview right after the upload/thumbnail area */
+  /* A comfortable canvas without a giant empty box on small screens */
   .preview-area {
     padding: 16px 12px 24px;
-    /* a comfortable canvas without a giant empty box on small screens */
-    min-height: 40vh;
+    min-height: 42vh;
   }
-
-  /* Bigger tap targets so settings are easy to use one-handed */
-  .setting-row { padding: 10px 0; font-size: 15px; }
-  .setting-row > span { min-width: 84px; }
-
-  /* 16px on form controls stops iOS Safari from auto-zooming on focus */
-  .setting-row select,
-  .setting-row input[type="number"],
-  .custom-size input,
-  .number-input input { font-size: 16px; padding: 8px; }
-
-  .custom-size input,
-  .number-input input { width: 72px; }
-
-  .radio-group { gap: 14px; }
-  .radio-group label { padding: 4px 0; }
 
   /* Keep the download button within thumb reach at all times */
   .download-section {
@@ -471,21 +414,11 @@ body {
     bottom: 0;
     z-index: 5;
     background: var(--surface);
-    margin: 0 -14px;
-    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    margin: 0 -16px;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--border);
     box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
   }
 
-  .btn-download { padding: 14px; font-size: 16px; }
-
-  /* Larger page navigation controls */
-  .btn-nav { padding: 10px 18px; font-size: 18px; }
-  .page-indicator { font-size: 15px; }
-
   .thumbnail-grid { gap: 8px; }
-}
-
-@media (max-width: 400px) {
-  .app-badge { display: none; }
 }
