@@ -3,3 +3,8 @@ dist
 .DS_Store
 *.log
 .vite
+
+# 環境變數（夜間盤點補上）
+.env
+.env.local
+.env*.local
